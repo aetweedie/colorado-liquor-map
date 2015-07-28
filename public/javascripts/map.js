@@ -86,6 +86,14 @@ var styledMap = new google.maps.StyledMapType(styleArray,
                 //   var infowindow = new google.maps.InfoWindow({
                 //   content: contentString
                 // });
+                // var marker = new google.maps.Marker({
+                //   position: myLatlng,
+                //   map: map,
+                //   title: licenses.businessName
+                // });
+                // google.maps.event.addListener(marker, 'click', function() {
+                //   infowindow.open(map,marker);
+                // });
               });
             }
         });
