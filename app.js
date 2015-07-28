@@ -4,8 +4,12 @@ var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
+var cookieSession = require('cookie-session');
 var bodyParser = require('body-parser');
 var db = require('monk')(process.env.MONGOLAB_URI);
+var licenses = db.get('liquorLicenses');
+var users = db.get('users');
+var bcrypt = require('bcryptjs');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
@@ -15,6 +19,13 @@ var app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
+
+app.set('trust proxy', 1);
+
+app.use(cookieSession({
+ name: 'session',
+ keys: ['KEY1', 'KEY2']
+}));
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -30,8 +41,14 @@ app.get('/styleguide', function(req, res){
   res.render('styleguide');
 });
 app.get('/licenses', function(req, res) {
-  res.end();
+  licenses.find({}, function (err, docs) {
+  res.json(docs);
+  });
 });
+app.get('/signup', function (req, res) {
+  res.render ('signup');
+});
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

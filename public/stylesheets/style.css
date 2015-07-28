@@ -81,7 +81,6 @@ input[type="email"], input[type="password"] {
 .main-nav {
   background-color: #45050C;
   height: 60px;
-  width: 100%;
   padding: 10px;
   padding-top: 30px; }
   .main-nav h1 {
@@ -111,3 +110,28 @@ input[type='submit'], button {
   padding: 20px;
   background: #EECF6D;
   font-family: "Slabo 27px"; }
+
+::-webkit-input-placeholder {
+  color: #8B6220;
+  font-size: 12px; }
+
+:-moz-placeholder {
+  /* Firefox 18- */
+  color: #8B6220;
+  font-size: 12px; }
+
+::-moz-placeholder {
+  /* Firefox 19+ */
+  color: #8B6220;
+  font-size: 12px; }
+
+:-ms-input-placeholder {
+  color: #8B6220;
+  font-size: 12px; }
+
+.sign-up-page {
+  height: 100%;
+  width: 100%;
+  background-color: #45050C;
+  text-align: center;
+  padding-top: 20%; }

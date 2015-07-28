@@ -1,3 +1,13 @@
+var Orbit = function () {};
+
+Orbit.prototype.get = function (path, fn) {
+  var req = new XMLHttpRequest();
+  req.open('GET', path);
+  req.addEventListener('load', fn.bind(req));
+  req.send();
+  return req;
+};
+
 function initialize() {
 
   var styleArray = [
@@ -46,20 +56,41 @@ var styledMap = new google.maps.StyledMapType(styleArray,
       mapOptions);
         map.mapTypes.set('map_style', styledMap);
         map.setMapTypeId('map_style');
+        var licenseLocations = new Orbit();
+
+        licenseLocations.get ('/licenses', function() {
+          var licenses = JSON.parse (this.response);
+          var geocoder = new google.maps.Geocoder();
+          for (var i = 0; i < licenses.length; i ++) {
+              geocoder.geocode( { 'address': licenses[i].street + licenses[i].city + licenses[i].state + licenses[i].zip}, function(results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                  map.setCenter(results[0].geometry.location);
+                  console.log(licenses);
+                  var marker = new google.maps.Marker({
+                      map: map,
+                      position: results[0].geometry.location,
+                      icon: '/images/liquor.png'
+                  });
+                } else {
+                  alert("Geocode was not successful for the following reason: " + status);
+                }
+                //     var contentString =
+                //   '<div id="content">'+
+                //   '<div id="siteNotice">'+
+                //   '</div>'+
+                //   '<h1 id="firstHeading" class="firstHeading">' + businessName + '</h1>' +
+                //   '<h2 id="secondHeading" class="secondHeading">' + street + '</h2>' +
+                //   '</div>'+
+                //   '</div>';
+                //
+                //   var infowindow = new google.maps.InfoWindow({
+                //   content: contentString
+                // });
+              });
+            }
+        });
+
 }
 
-// function codeAddress() {
-//   var address = document.getElementById("address").value;
-//   geocoder.geocode( { 'address': address}, function(results, status) {
-//     if (status == google.maps.GeocoderStatus.OK) {
-//       map.setCenter(results[0].geometry.location);
-//       var marker = new google.maps.Marker({
-//           map: map,
-//           position: results[0].geometry.location
-//       });
-//     } else {
-//       alert("Geocode was not successful for the following reason: " + status);
-//     }
-//   });
 
 google.maps.event.addDomListener(window, 'load', initialize);

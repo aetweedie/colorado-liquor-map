@@ -6,3 +6,23 @@ input[type='submit'], button {
   background: $yellow;
   font-family: "Slabo 27px"
 }
+
+::-webkit-input-placeholder {
+   color: $brown;
+   font-size: 12px;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+   color: $brown;
+   font-size: 12px;
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+   color: $brown;
+   font-size: 12px;
+}
+
+:-ms-input-placeholder {
+   color: $brown;
+   font-size: 12px;
+}
