@@ -13,26 +13,47 @@ function initialize() {
   var licenseLocations = new Orbit();
 
   var mapOptions = {
-    center: { lat: 39.102100, lng: -105.536616},
-    zoom: 7
+    center: { lat: 39.745652, lng: -104.992055},
+    zoom: 11
   };
 
   licenseLocations.get ('/licenses', function() {
     var licenses = JSON.parse (this.response);
-    for (var i = 0; i < licenses.length; i ++) {
+    for (var i = 0; i < 40; i ++) {
       var latlng = new google.maps.LatLng(licenses[i].Latitude, licenses[i].Longitude);
       var marker = new google.maps.Marker({
           map: map,
           position: latlng,
           icon: '/images/liquor.png'
       });
-      }
+
+      var contentString = '<div id="content">' +
+      '<div id="siteNotice">' +
+      '</div>' +
+      '<h1 id="firstHeading" class="firstHeading">' + licenses[i].businessName + '</h1>' +
+      '<h2 id="secondHeading" class="secondHeading">' + licenses[i].Street + '</h2>' +
+      '<h2 id="secondHeading" class="secondHeading">' + licenses[i].City + '</h2>' +
+      '<h2 id="secondHeading" class="secondHeading">' + licenses[i].Zip + '</h2>' +
+      '</div>';
+
+      (function () {
+        var infoWindow = new google.maps.InfoWindow({
+          content: contentString,
+          position: marker.position
+        });
+        // console.log(infoWindow.position);
+        google.maps.event.addListener(marker, 'click', function() {
+          infoWindow.open(map);
+        });
+      })()
+    }
   });
+
+
 
   var map = new google.maps.Map(document.getElementById('map-canvas'),
       mapOptions);
-        // map.mapTypes.set('map_style', styledMap);
-        // map.setMapTypeId('map_style');
+
 
   var styleArray = [
   {
