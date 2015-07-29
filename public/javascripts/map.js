@@ -19,7 +19,7 @@ function initialize() {
 
   licenseLocations.get ('/licenses', function() {
     var licenses = JSON.parse (this.response);
-    for (var i = 0; i < 40; i ++) {
+    for (var i = 0; i < licenses.length; i ++) {
       var latlng = new google.maps.LatLng(licenses[i].Latitude, licenses[i].Longitude);
       var marker = new google.maps.Marker({
           map: map,
