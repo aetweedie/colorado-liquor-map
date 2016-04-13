@@ -7,7 +7,14 @@
   js = d.createElement(s); js.id = id;
   js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.4&appId=285360921488915";
   fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
+}(document, 'script', 'facebook-jssdk'));
+</script>
+
+<script type="text/javascript">
+  !function(a,b,c,d,e,f,g){a.RaygunObject=e,a[e]=a[e]||function(){
+  (a[e].o=a[e].o||[]).push(arguments)},f=b.createElement(c),g=b.getElementsByTagName(c)[0],
+  f.async=1,f.src=d,g.parentNode.insertBefore(f,g)}(window,document,"script","//cdn.raygun.io/raygun4js/raygun.min.js","rg4js");
+</script>
 
 <nav class="main-nav">
   <h1>Colorado Liquor Map</h1>
@@ -23,4 +30,9 @@
 
   <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=" + process.env.KEY >
   </script>
+  <script type="text/javascript">
+  rg4js('apiKey', process.env.RAYGUN);
+  rg4js('enablePulse', true);
+  rg4js('enableCrashReporting', false);
+</script>
   <script type="text/javascript" src="/javascripts/map.js"></script>
